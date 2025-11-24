@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="detalhes-container">
+    
+    <div class="detalhes-img-wrapper">
+        {% if pacote.imagem %}
+            <img src="{{ pacote.imagem.url }}" alt="{{ pacote.nome }}" class="detalhes-img">
+        {% else %}
+            <div class="sem-imagem-grande">Sem Foto Disponível</div>
+        {% endif %}
+    </div>
+
+    <div class="detalhes-info">
+        <h2 class="detalhes-titulo">{{ pacote.nome }}</h2>
+        <p class="detalhes-data">Saída: {{ pacote.data_viagem|date:"d \d\e F \d\e Y" }}</p>
+        
+        <div class="detalhes-descricao">
+            <h3>Sobre o destino:</h3>
+            <p>{{ pacote.descricao|linebreaksbr }}</p>
+        </div>
+
+        <div class="detalhes-acao">
+            <span class="preco-grande">R$ {{ pacote.preco }}</span>
+            <a href="{% url 'adicionar_carrinho' pacote.id %}" class="btn-reservar">Reservar Agora</a>
+        </div>
+        
+        <a href="{% url 'index' %}" class="btn-voltar">← Voltar para lista</a>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="carrinho-container">
+    <h2 class="titulo-secao">Meu Carrinho de Compras</h2>
+
+    {% if pacotes %}
+        <div class="tabela-responsive">
+            <table class="tabela-carrinho">
+                <thead>
+                    <tr>
+                        <th>Pacote</th>
+                        <th>Data</th>
+                        <th>Preço</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pacote in pacotes %}
+                    <tr>
+                        <td>
+                            <strong>{{ pacote.nome }}</strong>
+                        </td>
+                        <td>{{ pacote.data_viagem|date:"d/m/Y" }}</td>
+                        <td class="preco-item">R$ {{ pacote.preco }}</td>
+                        <td>
+                            <a href="#" class="btn-remover">Remover</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="carrinho-resumo">
+            <h3>Total da Compra: <span class="preco-total">R$ {{ total }}</span></h3>
+            <button class="btn-finalizar">Finalizar Compra</button>
+            <a href="{% url 'index' %}" class="btn-continuar">Continuar Comprando</a>
+        </div>
+
+    {% else %}
+        <div class="carrinho-vazio">
+            <p>Seu carrinho está vazio.</p>
+            <a href="{% url 'index' %}" class="btn-auth">Ver Pacotes</a>
+        </div>
+    {% endif %}
+
+</section>
+
+{% endblock %}

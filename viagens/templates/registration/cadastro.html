@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="auth-container">
+    <h2 class="auth-titulo">Criar Nova Conta</h2>
+
+    <form method="post" class="auth-form">
+        {% csrf_token %}
+        
+        {{ form.as_p }}
+
+        <button type="submit" class="btn-auth">Cadastrar-se</button>
+    </form>
+
+    <div class="auth-footer">
+        <p>Já tem uma conta? <a href="{% url 'login' %}">Faça Login</a></p>
+    </div>
+</section>
+
+{% endblock %}

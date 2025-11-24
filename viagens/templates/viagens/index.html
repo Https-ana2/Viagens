@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load image_extras %}
+
+{% block content %}
+    
+    <h2 class="titulo-secao">Pacotes em Destaque</h2>
+
+    <form action="{% url 'index' %}" method="GET" style="max-width: 600px; margin: 0 auto 30px auto; display: flex; gap: 10px;">
+        <input type="text" name="buscando" placeholder="Para onde você quer ir?" style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+        <button type="submit" style="background: #0056b3; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Buscar</button>
+    </form>
+        <!-- Carousel de pacotes (máx. 5) -->
+        {% if destaque %}
+        <div id="destaqueCarousel" class="carousel slide carousel-fade mb-4" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                {% for pacote in destaque %}
+                    <button type="button" data-bs-target="#destaqueCarousel" data-bs-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active" aria-current="true"{% endif %} aria-label="Slide {{ forloop.counter }}"></button>
+                {% endfor %}
+            </div>
+            <div class="carousel-inner">
+                {% for pacote in destaque %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                    <img src="{{ pacote.imagem|thumb:'carousel' }}" loading="lazy" class="d-block w-100 carousel-img" alt="{{ pacote.nome }}">
+                    <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded px-3 py-2">
+                        <h5>{{ pacote.nome }}</h5>
+                        <p class="mb-0">{{ pacote.data_viagem|date:"d/m/Y" }} • R$ {{ pacote.preco }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#destaqueCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Anterior</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#destaqueCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Próximo</span>
+            </button>
+        </div>
+        {% endif %}
+
+        <div class="grid-pacotes">
+                {% for pacote in pacotes %}
+            <article class="card-pacote">
+                
+                {% if pacote.imagem %}
+                    <img src="{{ pacote.imagem|thumb }}" loading="lazy" alt="{{ pacote.nome }}" class="card-img">
+                {% else %}
+                    <div class="sem-imagem">Sem Foto</div>
+                {% endif %}
+                
+                <div class="card-corpo">
+                    <h3 class="card-titulo">{{ pacote.nome }}</h3>
+                    <p class="card-desc">{{ pacote.descricao|truncatewords:20 }}</p>
+                    <p class="card-data">📅 {{ pacote.data_viagem|date:"d/m/Y" }}</p>
+                    
+                    <div class="card-rodape">
+                        <span class="card-preco">R$ {{ pacote.preco }}</span>
+                        <a href="{% url 'detalhes' pacote.id %}" class="btn-detalhes">Ver Detalhes</a>
+                    </div>
+                </div>
+
+            </article>
+        {% empty %}
+            <p class="msg-vazio">Nenhum pacote cadastrado no momento.</p>
+        {% endfor %}
+    </div>
+
+{% endblock %}
