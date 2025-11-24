@@ -1,36 +1,53 @@
 <header class="cabecalho-principal">
-    <div class="container cabecalho-conteudo">
-        
-        <div class="lado-esquerdo">
-            <h1 class="logo">✈️ Viaje Bem</h1>
-            <nav class="menu-principal">
-                <a href="{% url 'index' %}">Início</a>
-                <a href="{% url 'sobre' %}">Sobre</a>
-                <a href="{% url 'contato' %}">Contato</a>
-            </nav>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand logo" href="{% url 'index' %}">✈️ Viaje Bem</a>
 
-        <div class="lado-direito">
-            <a href="{% url 'ver_carrinho' %}" class="btn-carrinho">
-                <span>🛒 Carrinho</span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuNavegacao" aria-controls="menuNavegacao" aria-expanded="false" aria-label="Alternar navegação">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="menuNavegacao">
                 
-                <span class="contador">
-                    {{ request.session.carrinho|length }}
-                </span>
-            </a>
-            {% if user.is_authenticated %}
-                <div style="display: flex; flex-direction: column; align-items: end;">
-                    <span style="font-size: 0.8rem; color: #ddd;">Olá, {{ user.username }}</span>
-                    
-                    <form action="{% url 'logout' %}" method="post" style="margin: 0;">
-                        {% csrf_token %}
-                        <button type="submit" style="background: none; border: none; color: #ffc107; cursor: pointer; font-weight: bold; font-size: 0.9rem;">Sair</button>
-                    </form>
-                </div>
-            {% else %}
-                <a href="{% url 'login' %}" class="link-login">Entrar</a>
-            {% endif %}
-            
-        </div>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'index' %}">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'sobre' %}">Sobre</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'contato' %}">Contato</a>
+                    </li>
+                </ul>
 
-    </div>
+                <div class="d-flex align-items-center gap-3">
+                    
+                    <a href="{% url 'ver_carrinho' %}" class="btn-carrinho text-decoration-none">
+                        <span>🛒 Carrinho</span>
+                        <span class="contador ms-1">{{ request.session.carrinho|length }}</span>
+                    </a>
+
+                    {% if user.is_authenticated %}
+                        <div class="dropdown">
+                            <a class="nav-link dropdown-toggle text-white fw-bold" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Olá, {{ user.username }}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <form action="{% url 'logout' %}" method="post" class="d-inline">
+                                        {% csrf_token %}
+                                        <button type="submit" class="dropdown-item text-danger">Sair</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn btn-outline-light btn-sm fw-bold">Entrar</a>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </nav>
 </header>

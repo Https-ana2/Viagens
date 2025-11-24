@@ -28,51 +28,32 @@ a {
 /* =========================================
    2. CABEÇALHO (HEADER)
    ========================================= */
-.cabecalho-principal {
-    background-color: #0056b3; /* Azul mais sério */
-    color: white;
-    padding: 1rem 0;
+   .cabecalho-principal {
+    background-color: #0056b3; /* Azul da marca */
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.cabecalho-conteudo {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-/* Lado Esquerdo (Logo + Menu) */
-.lado-esquerdo {
-    display: flex;
-    align-items: center;
-    gap: 30px;
 }
 
 .logo {
     font-size: 1.5rem;
     font-weight: bold;
+    color: white !important;
 }
 
-.menu-principal a {
-    color: white;
-    margin-right: 20px;
+/* Ajuste nos links do menu para ficarem brancos e com efeito */
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.9);
     font-size: 0.95rem;
-    opacity: 0.9;
+    margin-right: 10px;
     transition: opacity 0.3s;
 }
 
-.menu-principal a:hover {
-    opacity: 1;
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: white;
     text-decoration: underline;
+    opacity: 1;
 }
 
-/* Lado Direito (Carrinho + Login) */
-.lado-direito {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
+/* Botão Carrinho Personalizado */
 .btn-carrinho {
     background-color: rgba(255, 255, 255, 0.2);
     padding: 8px 15px;
@@ -80,13 +61,14 @@ a {
     color: white;
     display: flex;
     align-items: center;
-    gap: 8px;
     font-size: 0.9rem;
     transition: background 0.3s;
+    border: 1px solid transparent;
 }
 
 .btn-carrinho:hover {
     background-color: rgba(255, 255, 255, 0.3);
+    color: white;
 }
 
 .contador {
@@ -99,11 +81,6 @@ a {
     justify-content: center;
     align-items: center;
     font-size: 0.75rem;
-    font-weight: bold;
-}
-
-.link-login {
-    color: white;
     font-weight: bold;
 }
 
