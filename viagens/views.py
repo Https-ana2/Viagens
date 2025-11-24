@@ -110,3 +110,24 @@ def contato(request):
         form = ContatoForm()
 
     return render(request, 'viagens/contato.html', {'form': form})
+
+def index(request):
+    lista_pacotes = Pacote.objects.filter(ativo=True)
+    
+    if 'buscando' in request.GET:
+        nome_a_buscar = request.GET['buscando']
+        if nome_a_buscar:
+            lista_pacotes = lista_pacotes.filter(nome__icontains=nome_a_buscar)
+
+    if 'categoria' in request.GET:
+        categoria_filtrar = request.GET['categoria']
+        # Se a categoria não estiver vazia, aplica o filtro
+        if categoria_filtrar:
+            lista_pacotes = lista_pacotes.filter(categoria=categoria_filtrar)
+
+    destaque = lista_pacotes.exclude(imagem='')[:5]
+
+    return render(request, 'viagens/index.html', {'pacotes': lista_pacotes, 'destaque': destaque})
+
+def sobre(request):
+    return render(request, 'viagens/sobre.html')

@@ -6,10 +6,21 @@
     
     <h2 class="titulo-secao">Pacotes em Destaque</h2>
 
-    <form action="{% url 'index' %}" method="GET" style="max-width: 600px; margin: 0 auto 30px auto; display: flex; gap: 10px;">
-        <input type="text" name="buscando" placeholder="Para onde você quer ir?" style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
-        <button type="submit" style="background: #0056b3; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Buscar</button>
+    <form action="{% url 'index' %}" method="GET" class="d-flex justify-content-center gap-2 mb-4" style="max-width: 800px; margin: 0 auto;">
+    
+        <input type="text" name="buscando" class="form-control" placeholder="Para onde quer ir?" value="{{ request.GET.buscando }}">
+        
+        <select name="categoria" class="form-select" style="max-width: 200px;">
+            <option value="">Todas as Categorias</option>
+            <option value="NAC" {% if request.GET.categoria == "NAC" %}selected{% endif %}>Nacional</option>
+            <option value="INT" {% if request.GET.categoria == "INT" %}selected{% endif %}>Internacional</option>
+        </select>
+    
+        <button type="submit" class="btn btn-primary">Buscar</button>
+        
+        <a href="{% url 'index' %}" class="btn btn-outline-secondary">Limpar</a>
     </form>
+    
         <!-- Carousel de pacotes (máx. 5) -->
         {% if destaque %}
         <div id="destaqueCarousel" class="carousel slide carousel-fade mb-4" data-bs-ride="carousel">
